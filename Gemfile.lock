@@ -88,7 +88,6 @@ PLATFORMS
 DEPENDENCIES
   datamapper
   dm-postgres-adapter
-  do_postgres
   httparty
   json
   koala
