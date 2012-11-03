@@ -14,6 +14,7 @@ set :show_exceptions, false
 # for a full list of permissions
 FACEBOOK_SCOPE = 'user_likes,user_photos,user_photo_video_tags'
 
+
 unless ENV["FACEBOOK_APP_ID"] && ENV["FACEBOOK_SECRET"]
   abort("missing env vars: please set FACEBOOK_APP_ID and FACEBOOK_SECRET with your app credentials")
 end
@@ -66,16 +67,44 @@ get "/" do
     @friends = @graph.get_connections('me', 'friends')
     @photos  = @graph.get_connections('me', 'photos')
     @likes   = @graph.get_connections('me', 'likes')
-    @likes.each do |like|
-      @activities.push like if like['category'] == "Interest"
+    @activities   = @graph.get_connections('me', 'activities')
+    puts @likes.size
+    puts @activities.size
+    friends_a = @friends.to_a
+    puts friends_a.size
+    randn = rand(@friends.size)
+    @rand_friend = friends_a[randn]
+    puts @rand_friend['name']
+    @matching_acts = Array.new;
+    @friendacts = @graph.get_connections('638426604', 'activities')#@rand_friend['id'], 'activities')
+    puts @friendacts.size
+    while @matching_acts.size == 0
+      puts @friendacts.size
+      randn = rand(@friends.size)
+      @rand_friend = friends_a[randn]
+      @matching_acts = Array.new;
+      @friendacts = @graph.get_connections('638426604', 'activities')#@rand_friend['id'], 'activities')
+      @friendacts.each do |activity|
+        @activities.each do |myact|
+          if myact['name'].downcase == activity['name'].downcase
+            @matching_acts << activity
+          end
+        end
+      end
+        #if @activities.include? activity
+        #  @matching_acts < activity
+        #end
     end
-    
+    @yourgoal = @matching_acts[rand(@matching_acts.size)]
+    puts "You should go " + @yourgoal['name'] + " with Jonathan Poczatek."
+
     #@likes = @user.likes;
 
     # for other data you can always run fql
     @friends_using_app = @graph.fql_query("SELECT uid, name, is_app_user, pic_square FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1")
   end
-  erb :index
+  #erb :index
+  erb :home
 end
 
 # used by Canvas apps - redirect the POST to be a regular GET

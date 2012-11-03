@@ -208,7 +208,7 @@
           <div class="list">
             <h3>Things you like</h3>
             <ul class="things">
-              <% @likes.each do |like| %>
+              <% @activities.each do |like| %>
                 <li>
                   <a href="#" onclick="window.open('http://www.facebook.com/<%= like['id'] %>')">
                     <img src="https://graph.facebook.com/<%= like['id'] %>/picture?type=square" alt="<%= like['name'] %>">
