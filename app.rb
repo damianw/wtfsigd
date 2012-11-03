@@ -68,35 +68,73 @@ get "/" do
     @photos  = @graph.get_connections('me', 'photos')
     @likes   = @graph.get_connections('me', 'likes')
     @activities   = @graph.get_connections('me', 'activities')
+    @movies   = @graph.get_connections('me', 'movies')
+    @music   = @graph.get_connections('me', 'music')
+    @my_data = @graph.get_connections('me', 'activities') + @graph.get_connections('me', 'movies') + @graph.get_connections('me', 'music')
     puts @likes.size
     puts @activities.size
+
+    #pick a random friend
     friends_a = @friends.to_a
-    puts friends_a.size
-    randn = rand(@friends.size)
-    @rand_friend = friends_a[randn]
-    puts @rand_friend['name']
-    @matching_acts = Array.new;
-    @friendacts = @graph.get_connections('638426604', 'activities')#@rand_friend['id'], 'activities')
-    puts @friendacts.size
-    while @matching_acts.size == 0
-      puts @friendacts.size
-      randn = rand(@friends.size)
+    #puts @rand_friend['name']
+    
+    # friendacts = @graph.get_connections(@rand_friend['id'], 'activities')#@rand_friend['id'], 'activities')
+    # friendmovies = @graph.get_connections(@rand_friend['id'], 'movies')
+    # friendmusic = @graph.get_connections(@rand_friend['id'], 'music')
+    # friendinterests = @graph.get_connections(@rand_friend['id'], 'movies')
+    # puts friendacts.size
+    #we have a random friend... what can we do with them?
+    matching_data = Array.new
+    while matching_data.size == 0
+      matching_data = Array.new
+      randn = rand(friends_a.size)
       @rand_friend = friends_a[randn]
-      @matching_acts = Array.new;
-      @friendacts = @graph.get_connections('638426604', 'activities')#@rand_friend['id'], 'activities')
-      @friendacts.each do |activity|
-        @activities.each do |myact|
-          if myact['name'].downcase == activity['name'].downcase
-            @matching_acts << activity
+      puts "Trying " + @rand_friend['name']
+      friend_data = @graph.get_connections(@rand_friend['id'], 'music') + @graph.get_connections(@rand_friend['id'], 'movies') + @graph.get_connections(@rand_friend['id'], 'activities')
+      puts friend_data.size
+      @my_data.each do |like|
+        friend_data.each do |flike|
+          if flike['name'] == like['name']
+            matching_data << like
           end
         end
+        # if friend_data.include? like
+        #   matching_data << like
+        # end
       end
-        #if @activities.include? activity
-        #  @matching_acts < activity
-        #end
     end
-    @yourgoal = @matching_acts[rand(@matching_acts.size)]
-    puts "You should go " + @yourgoal['name'] + " with Jonathan Poczatek."
+
+    @activity = matching_data[rand(matching_data.size)]
+    puts @activity['category']
+    @verb = " watch that fucking " if @activity['category'].include? "Movie"
+    @verb = " listen to some fucking " if @activity['category'].include? "Music"
+    @verb = " fucking go " if @activity['category'].include? "Interest"
+    @goal = "You should" + @verb + @activity['category'] + "with" + @rand_friend['name'] + "."
+    puts "You should" + @verb + @activity['name'] + " with " + @rand_friend['name'] + "."
+
+    # matching_data
+    # matching_acts = Array.new
+    # friendacts.each do |activity|
+    #   @activities.each do |myact|
+    #     if myact['name'].downcase == activity['name'].downcase
+    #       matching_acts << activity
+    #     end
+    #   end
+    # end
+
+    # matching_movies = Array.new
+    # friendmovies.each do |activity|
+    #   @movies.each do |myact|
+    #     if myact['name'].downcase == activity['name'].downcase
+    #       matching_movies << activity
+    #     end
+    #   end
+    # end
+
+    
+
+    #@yourgoal = matching_acts[rand(matching_acts.size)]
+    #puts "You should go " + @yourgoal['name'] + " with " + @rand_friend['name'] + "."
 
     #@likes = @user.likes;
 
