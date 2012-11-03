@@ -1,0 +1,640 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"squareN",
+				"squareNotSelfOccupied"
+			],
+			[
+				"squ",
+				"squareOccupied"
+			],
+			[
+				"sq",
+				"squares"
+			],
+			[
+				"nP",
+				"nPawnLocation"
+			],
+			[
+				"MAx",
+				"MAXPLAYERS"
+			],
+			[
+				"lo",
+				"lowestStartablePawn"
+			],
+			[
+				"square",
+				"squareOccupant"
+			],
+			[
+				"NUMP",
+				"NUMPAWNS"
+			],
+			[
+				"aS",
+				"aSTUCK"
+			],
+			[
+				"h",
+				"homeSquare"
+			],
+			[
+				"st",
+				"startSquare"
+			],
+			[
+				"Pawn",
+				"PawnLocation"
+			],
+			[
+				"file",
+				"fileExists"
+			],
+			[
+				"read",
+				"readBoard"
+			],
+			[
+				"pS",
+				"pSquare"
+			],
+			[
+				"num",
+				"numSquares"
+			],
+			[
+				"S",
+				"SQUARES"
+			],
+			[
+				"boar",
+				"boardFile"
+			],
+			[
+				"Square",
+				"SquareKind"
+			],
+			[
+				"pSq",
+				"pSquareKind"
+			],
+			[
+				"pla",
+				"player_start_row"
+			],
+			[
+				"get",
+				"get_goal_rows"
+			],
+			[
+				"player",
+				"player_start_row_str"
+			],
+			[
+				"op",
+				"opp_end_row"
+			],
+			[
+				"pl",
+				"player_end_row"
+			],
+			[
+				"opp",
+				"get_opp_end_row"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/Users/Jonathan/Desktop/WHERE THE FUCK SHOULD I GO TO EAT .htm",
+			"settings":
+			{
+				"buffer_size": 36531,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Jonathan/Desktop/WHERE THE FUCK SHOULD I GO TO EAT _files/foundation.css",
+			"settings":
+			{
+				"buffer_size": 7224,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/Jonathan/Desktop/WHERE THE FUCK SHOULD I GO TO EAT _files/app.css",
+			"settings":
+			{
+				"buffer_size": 6631,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "<!doctype html>  \n<html lang=\"en\">  \n<head>  \n  <meta charset=\"utf8\">  \n  <title>What the fuck should I go do?</title>  \n  <link href=\"/stylesheets/reset.css\" rel=\"stylesheet\">  \n  <link href=\"/stylesheets/style.css\" rel=\"stylesheet\">  \n</head>  \n<body>  \n  <header>  \n    <hgroup>  \n      <h1><a href=\"/\">What the fuck should I go do?</a></h1>\n    </hgroup>  \n  </header>  \n  <div id=\"main\">  \n    <%= yield %>  \n  </div>  \n  <footer>  \n    <p><small>The University of Michigan thanks you for your cooperation.</small></p>  \n  </footer>  \n</body>  \n</html>  \n\n\n<div id=\"login\" class=\"row\">\n  <div class=\"twelve columns\">\n            <input id=\"login\" placeholder=\"WHO THE FUCK ARE YOU?\" type=\"text\" autocomplete=\"off\">\n</div>",
+			"file": "views/layout.htm",
+			"file_size": 580,
+			"file_write_time": 129964080627150519,
+			"settings":
+			{
+				"buffer_size": 726,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "views/home.htm",
+			"settings":
+			{
+				"buffer_size": 5243,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Jonathan/Documents/GitHub/bootstrap/docs/examples/starter-template.html",
+			"settings":
+			{
+				"buffer_size": 3285,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/stylesheets/foundation.css",
+			"settings":
+			{
+				"buffer_size": 7395,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "public/stylesheets/app.css",
+			"settings":
+			{
+				"buffer_size": 6836,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/C++/C++.sublime-build",
+	"command_palette":
+	{
+		"height": 296.0,
+		"selected_items":
+		[
+			[
+				"",
+				"Build: Build"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 180.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/Jonathan/Documents/GitHub/bootstrap/docs/examples/sticky-footer.html",
+		"/C/Users/Jonathan/College/Sophomore Year 2012-2013/eecs280help/p3/DebugGame.txt",
+		"/C/Users/Jonathan/College/Sophomore Year 2012-2013/eecs280help/p3/printer.cpp",
+		"/C/Users/Jonathan/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/Jonathan/AppData/Roaming/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/C/Users/Jonathan/College/Sophomore Year 2012-2013/eecs280help/p3/argsreader.cpp",
+		"/C/Users/Jonathan/Desktop/Simulation/Simulation.java",
+		"/C/Users/Jonathan/Desktop/Simulation/Game.java",
+		"/C/Users/Jonathan/Desktop/Simulation/Test.java",
+		"/C/Users/Jonathan/Desktop/Simulation/instructions.java",
+		"/C/Users/Jonathan/Desktop/Simulation/Player.java",
+		"/C/Users/Jonathan/College/Network Theory/checkPairwiseConnectivityCode.py",
+		"/C/Users/Jonathan/Documents/B.html",
+		"/C/Users/Jonathan/College/Kaggle/Facebook/Kaggle_Facebook.py",
+		"/C/Users/Jonathan/Downloads/genderclassmodel.py",
+		"/C/Users/Jonathan/College/Sophomore Year 2012-2013/Hacks/Barracuda/offer_choice.txt",
+		"/C/Users/Jonathan/College/Sophomore Year 2012-2013/Hacks/Barracuda/debug_choice.txt",
+		"/C/Users/Jonathan/Downloads/python.py",
+		"/C/Users/Jonathan/College/Sophomore Year 2012-2013/Hacks/Barracuda/blah.py",
+		"/C/Users/Jonathan/College/Graph.Facebook/post_fb.py",
+		"/C/Users/Jonathan/AppData/Roaming/Sublime Text 2/Packages/User/Distraction Free.sublime-settings",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/util/FoursquareManager.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/util/FoursquareApi.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/util/DrinksSettings.java",
+		"/C/Users/Jonathan/College/Sophomore Year 2012-2013/Hacks/Barracuda/maptest.py",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/util/ImageLoader.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/util/SegmentedRadioGroup.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/util/User.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/util/VenmoApi.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/util/VenmoResponse.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/util/VenmoSDK.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/util/ViewTools.java",
+		"/C/Users/Jonathan/Desktop/test.py",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/util/CenteredRadioImageButton.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/util/ApiUtils.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/FoursquareOauthActivity.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/FriendsAdapter.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/MainActivity.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/PickVenueActivity.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/TransactionActivity.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/URLActivity.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/UserListActivity.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/VenmoOauthActivity.java",
+		"/C/Users/Jonathan/Documents/GitHub/drinks-on-me-android/src/com/drinksonme/ApplicationState.java",
+		"/C/Users/Jonathan/Documents/GitHub/facebook-android-sdk/examples/Hackbook/build.xml",
+		"/C/Users/Jonathan/Documents/NetBeansProjects/NearYouNow/NearYouNow/build.xml",
+		"/C/Users/Jonathan/Documents/NetBeansProjects/NearYouNow/NearYouNow/project.properties",
+		"/C/Users/Jonathan/Documents/GitHub/facebook-android-sdk/examples/Hackbook/project.properties",
+		"/C/Users/Jonathan/College/Network Theory/ClustCoefCode.py",
+		"/C/Users/Jonathan/College/Kaggle/Facebook/train2Sort.csv",
+		"/C/Users/Jonathan/College/Network Theory/ConnCompCode.py",
+		"/C/Users/Jonathan/College/Network Theory/bfsCode.py",
+		"/C/Users/Jonathan/College/Network Theory/centralityCode.py",
+		"/C/Users/Jonathan/College/Sophomore Year 2012-2013/Hacks/Clusters/createmaptest.py",
+		"/C/Users/Jonathan/College/Kaggle/Facebook/train2.csv",
+		"/C/Users/Jonathan/College/Sophomore Year 2012-2013/Hacks/Clusters/maptest.py",
+		"/C/Users/Jonathan/College/Sophomore Year 2012-2013/Hacks/Clusters/import json.py",
+		"/C/Users/Jonathan/College/Sophomore Year 2012-2013/Hacks/Clusters/import json2.py",
+		"/C/Users/Jonathan/College/Network Theory/Udacity/Unit 5 Strong and Weak Bonds/Lecture 19 Bounds on the Estimate.py",
+		"/C/Users/Jonathan/College/Network Theory/Udacity/Unit 5 Strong and Weak Bonds/Lecture 11 Code for Dijkstra.py",
+		"/C/Users/Jonathan/College/Network Theory/Udacity/Unit 6 Hardness of Network Problems/Lecture 9 code.py",
+		"/C/Users/Jonathan/College/Network Theory/Udacity/Unit 4 It's Who You Know/Code for magic trick.py",
+		"/C/Users/Jonathan/College/Network Theory/Udacity/Unit 4 It's Who You Know/Lecture 27 Down Heapify.py",
+		"/C/Users/Jonathan/College/Network Theory/Udacity/Unit 4 It's Who You Know/Lecture 18 Top K Code.py",
+		"/C/Users/Jonathan/College/Network Theory/Udacity/Unit 4 It's Who You Know/Lecture 11 Order Statistics.py",
+		"/C/Users/Jonathan/Downloads/IBM.SPSS.Statistics.v20.x64.Multilingual-EQUiNOX/equinox.nfo",
+		"/C/Users/Jonathan/Downloads/Innocent/list.txt",
+		"/C/Users/Jonathan/Desktop/headscripts.js",
+		"/C/Users/Jonathan/College/Graph.Facebook/temp.cpp",
+		"/C/Users/Jonathan/AppData/Roaming/Sublime Text 2/Packages/User/Plain text.sublime-settings",
+		"/C/Users/Jonathan/Desktop/bookmarks_9_15_12.html",
+		"/C/Users/Jonathan/Documents/NetBeansProjects/NewContentProviderSample/gen/com/sai/contentprovider/R.java",
+		"/C/Users/Jonathan/Documents/NetBeansProjects/NewContentProviderSample/res/values/strings.xml",
+		"/C/Users/Jonathan/Documents/NetBeansProjects/NewContentProviderSample/res/layout/nativecontentprovider.xml",
+		"/C/Users/Jonathan/Documents/NetBeansProjects/NewContentProviderSample/src/com/sai/contentprovider/NativeContentProvider.java",
+		"/C/Users/Jonathan/Downloads/NewContentProviderSample2.2/NewContentProviderSample/src/com/sai/contentprovider/NativeContentProvider.java",
+		"/C/Android/android-sdk/samples/android-15/SampleSyncAdapter/src/com/example/android/samplesync/client/RawContact.java",
+		"/C/Android/android-sdk/samples/android-15/SampleSyncAdapter/src/com/example/android/samplesync/platform/ContactOperations.java",
+		"/C/Android/android-sdk/samples/android-15/SampleSyncAdapter/src/com/example/android/samplesync/platform/ContactManager.java",
+		"/C/Android/android-sdk/samples/android-15/SampleSyncAdapter/src/com/example/android/samplesync/client/NetworkUtilities.java",
+		"/C/Android/android-sdk/samples/android-15/SampleSyncAdapter/tests/src/com/example/android/samplesync/client/UserTest.java",
+		"/C/Android/android-sdk/samples/android-15/ContactManager/src/com/example/android/contactmanager/ContactAdder.java",
+		"/C/Android/android-sdk/samples/android-15/ContactManager/src/com/example/android/contactmanager/ContactManager.java"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 90.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"wrong",
+			"destination",
+			"dGame",
+			"turn",
+			"pturn",
+			";\n",
+			"lowes",
+			"c"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Users/Jonathan/Desktop/WHERE THE FUCK SHOULD I GO TO EAT .htm",
+					"settings":
+					{
+						"buffer_size": 36531,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2046,
+								2046
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/Jonathan/Desktop/WHERE THE FUCK SHOULD I GO TO EAT _files/foundation.css",
+					"settings":
+					{
+						"buffer_size": 7224,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								7224
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 953.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Users/Jonathan/Desktop/WHERE THE FUCK SHOULD I GO TO EAT _files/app.css",
+					"settings":
+					{
+						"buffer_size": 6631,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								6631
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3002.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "views/layout.htm",
+					"settings":
+					{
+						"buffer_size": 726,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								495,
+								495
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"file": "views/home.htm",
+					"settings":
+					{
+						"buffer_size": 5243,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1886,
+								1886
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/C/Users/Jonathan/Documents/GitHub/bootstrap/docs/examples/starter-template.html",
+					"settings":
+					{
+						"buffer_size": 3285,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								422,
+								422
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "public/stylesheets/foundation.css",
+					"settings":
+					{
+						"buffer_size": 7395,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4250,
+								4250
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1348.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "public/stylesheets/app.css",
+					"settings":
+					{
+						"buffer_size": 6836,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								6058,
+								6058
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 5216.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.4796875,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 23.0
+	},
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"/C/Users/Jonathan/College/Sophomore Year 2012-2013/kyokoJava/hwk4/hwk4Project.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 196.0,
+	"status_bar_visible": false
+}
