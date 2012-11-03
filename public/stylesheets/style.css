@@ -51,6 +51,7 @@ header h2 {
 	border: 1px solid #ddd;
 	background: white;
 }
+
 #edit input[type=checkbox] {
 	height: 50px;
 	width: 20px;
