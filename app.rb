@@ -20,6 +20,8 @@ class User
   property :ignoredfriends, Object
   property :friendpref, Integer #0 for all friends, 1 for close friends, 2 for nearby friends
   property :objstate, Integer #0 for member of app, -1 for imported info
+  property :friendid_queue, Integer
+  property :activityid_queue, Integer
   #property :recentlymessaged, Object
 end  
 DataMapper.finalize.auto_upgrade!  
@@ -33,26 +35,38 @@ DataMapper.finalize.auto_upgrade!
 # for a full list of permissions
 FACEBOOK_SCOPE = 'user_likes,user_photos,user_photo_video_tags'
 
-# def next_match
-#   while true
-#     matching_data = Array.new
-#     matching_ing = Array.new
-#     rand_friend = ""
-#     count = 0
-#     while matching_data.size == 0 && matching_ing.size == 0 && count < 20
-#       rand_friend = get_random_friend(@my_user)
-#       matching_ing = get_matching_ings(@my_user, rand_friend)
-#       break if matching_ing.size > 0
-#       matching_data = get_matching_data(@my_user, rand_friend)
-#       count = count + 1
-#     end
-#     verb_activity_goal(rand_friend, matching_ing, matching_data)
-#     session[:nextfriend] = rand_friend['id']
-#     session[:nextverb] = @verb
-#     session[:nextactivity] = @activity
-# end
-
-@nextthread = Thread.new {next_match}
+$queue = Array.new
+def next_match (tuser)
+    #while ($queue.size == 0)
+    #end
+    #puts "Found element in queue!"
+    #user = $queue.pop
+    user=get_user(tuser['id'])
+    matching_data = Array.new
+    matching_ing = Array.new
+    rand_friend = ""
+    count = 0
+    while matching_data.size == 0 && matching_ing.size == 0 && count < 20
+      rand_friend = get_random_friend(user)
+      matching_ing = get_matching_ings(user, rand_friend)
+      break if matching_ing.size > 0
+      matching_data = get_matching_data(user, rand_friend)
+      count = count + 1
+    end
+    #verb_activity_goal(rand_friend, matching_ing, matching_data)
+    if user['friendid_queue'] == nil
+      user['friendid_queue'] = Array.new
+      user['activityid_queue'] = Array.new
+    end
+    user['friendid_queue'] << rand_friend['id']
+    if matching_ing.size > 0
+      activityid = matching_ing[rand(matching_ing.size)]['id']
+    else
+      activityid = matching_data[rand(matching_data.size)]['id']
+    end
+    user['activityid_queue'] << activityid
+    puts user.save
+end
 
 unless ENV["FACEBOOK_APP_ID"] && ENV["FACEBOOK_SECRET"]
   abort("missing env vars: please set FACEBOOK_APP_ID and FACEBOOK_SECRET with your app credentials")
@@ -156,15 +170,12 @@ def get_user(id = 'me')
     if id == 'me'
       puts "User is self. Filling skeleton..."
       user['friends'] = get_friends
-      filler = Thread.new do
-        user['nearbyfriends'] = get_nearbyfriends
-        user['closefriends'] = get_closefriends
-        user['ignoredfriends'] = Array.new
-        user['ignoredfriends'] << 0
-        user['objstate'] = 0
-        user.save
-      end
-      filler.run
+      user['nearbyfriends'] = get_nearbyfriends
+      user['closefriends'] = get_closefriends
+      user['ignoredfriends'] = Array.new
+      user['ignoredfriends'] << 0
+      user['objstate'] = 0
+      user.save
     else
       user['objstate'] = -1
     end
@@ -231,9 +242,17 @@ def get_random_friend(user)
   randf
 end
 
+def queue(user)
+  thread = Thread.new {next_match(user)}
+  thread.run
+  $queue << thread
+  puts  $queue.size
+end
+
 get "/" do
-  @graph  = Koala::Facebook::API.new(session[:access_token])
-  @app  =  @graph.get_object(ENV["FACEBOOK_APP_ID"])
+  $graph  = Koala::Facebook::API.new(session[:access_token]) if $graph == nil
+  @graph = $graph
+  $app  =  @graph.get_object(ENV["FACEBOOK_APP_ID"])
   if session[:access_token]
 
     @my_fbuser = @graph.get_object("me")
@@ -250,46 +269,32 @@ get "/" do
       session[:toignore] = nil
       @my_user.save
     end
-    #
-    if session[:nextfriend]
-      @activity = session[:nextactivity]
-      @verb = session[:nextverb]
-      @rand_friend = get_user(session[:nextfriend])
-      session["friendid"] = session[:nextfriend]
-      session[:nextfriend] = nil
-    else
+    #$queue << @my_user << @my_user << @my_user << @my_user #for the hell of it
+    queue(@my_user)
+    queue(@my_user)
+    #queue(@my_user)
       #pick a random friend
 
       #friends_a = @friends.to_a
 
       #we have a random friend... what can we do with them?
-      
-      matching_data = Array.new
-      matching_ing = Array.new
-      rand_friend = ""
-      count = 0
-      while matching_data.size == 0 && matching_ing.size == 0
-        redirect "/youfuckingsuck" if count > 20
-        rand_friend = get_random_friend(@my_user)
-        matching_ing = get_matching_ings(@my_user, rand_friend)
-        break if matching_ing.size > 0
-        matching_data = get_matching_data(@my_user, rand_friend)
-        count = count + 1
-      end
 
-      verb_activity_goal(rand_friend, matching_ing, matching_data)
-      @rand_friend = rand_friend
-      session["friendid"] = rand_friend['id']
-
-      # for other data you can always run fql
-      @friends_using_app = @graph.fql_query("SELECT uid, name, is_app_user, pic_square FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1")
-      display_message
+    if @my_user['friendid_queue'] == nil
+      next_match(@my_user)
+      puts "derpity"
     end
+    rand_friend = get_user(@my_user['friendid_queue'].pop)
+    activity = @graph.get_object(@my_user['activityid_queue'].pop)
+    verb_activity_goal(rand_friend, activity)
+    @rand_friend = rand_friend
+    session["friendid"] = rand_friend['id']
+
+    # for other data you can always run fql
+    @friends_using_app = @graph.fql_query("SELECT uid, name, is_app_user, pic_square FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1")
+    display_message
     session["friendpref"] = @my_user['friendpref']
     
     erb :home
-    
-    #@nextthread.join
   else
     erb :login
   end
@@ -297,14 +302,9 @@ get "/" do
   #erb :index
 end
 
-def verb_activity_goal(friend, matching_ing, matching_data)
+def verb_activity_goal(friend, activity)
+  @activity = activity
   @verb = " fucking go "
-  if matching_ing.size > 0
-    @activity = matching_ing[rand(matching_ing.size)]
-    @activity['name'].downcase!
-  else
-    @activity = matching_data[rand(matching_data.size)]
-  end
   puts @activity['category'] + ", " + @activity['name']
   @verb = " watch that fucking " if @activity['category'].include? "Movie"
   @verb = " listen to some fucking " if @activity['category'].include? "Music"
@@ -382,7 +382,7 @@ get '/auth/facebook/callback' do
 end
 
 def fix_instance_vars
-  @graph  = Koala::Facebook::API.new(session[:access_token]) if @graph == nil
+  @graph = $graph
   display_message
 end
 
