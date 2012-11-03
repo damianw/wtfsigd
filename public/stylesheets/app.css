@@ -1,0 +1,480 @@
+﻿@font-face {
+font-family: 'bebas';
+src: url('../fonts/BebasNeue-webfont.eot');
+src: url('../fonts/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'), url('../fonts/BebasNeue-webfont.woff') format('woff'), url('../fonts/BebasNeue-webfont.ttf') format('truetype'), url('../fonts/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
+font-weight: normal;
+font-style: normal;
+}
+
+/* =============================================================================
+   Primary styles
+   Author: 
+   ========================================================================== */
+
+body {
+	color: #000000;
+	font-family: "bebas", Tahoma, Geneva, sans-serif;
+	text-transform:uppercase;
+	line-height: 1;
+	padding-bottom: 80px;
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 40px;
+	position: relative;
+}
+
+input {
+	-webkit-appearance: none!important;
+	cursor:pointer
+}
+
+a:hover {
+	color:#00aba6 !important
+}
+
+/*#destination {
+	font-size:60px;
+	text-transform:uppercase;
+	display:block;
+	text-align:
+center;
+	margin:auto
+}
+
+#destination a {
+	text-decoration:underline;
+	color:#000;
+}*/
+
+#locationBar {
+	opacity:0.2
+}
+
+#locationBar:hover {
+	opacity:1;
+}
+
+#location {
+	display: block;
+	font-family: "bebas";
+	font-size: 40px;
+	height: 40px;
+	margin: 0 auto;
+	padding: 10px;
+	width: 50%;
+	color:#ccc;
+	text-align:left;
+	border-radius:0;
+	border:1px solid #000
+}
+
+#locationBar .submit {
+	background: none repeat scroll 0 0 #000000;
+	border: 0 none;
+	color: #FFFFFF;
+	display: block;
+	font-family: "bebas";
+	font-size: 30px;
+	margin: 30px auto;
+	padding: 10px;
+	width: 360px;
+}
+
+#locationBar .submit:hover {
+	background-color:#00aba6 !important
+}
+
+#location:focus {
+	color:#000;
+}
+
+#error {
+	display:none;
+	text-align:center;
+	font-size:35px;
+	margin-bottom:20px;
+}
+
+#mapcontainer {
+	margin: 40px auto 20px auto;
+	position: relative;
+	width: 100%;
+}
+
+#map {
+	height: 300px;
+	width: 100%;
+	background: #fff !important
+}
+
+#address {
+	background: none repeat scroll 0 0 rgba(255, 255, 255, 0.5);
+	bottom: 0;
+	font-size: 32px;
+	height: 280px;
+	padding: 10px;
+	position: absolute;
+	right: 0;
+	text-align: right;
+	width: 25%;
+	z-index:1000;
+}
+
+#actions {
+	width:75%;
+	margin:0px auto 0;
+	display:none;
+	text-align:center;
+}
+
+#actions a {
+	display: block;
+	font-size: 30px;
+	color: #000000;
+	margin-bottom:20px;
+}
+
+#actions #next {
+	font-size:40px;
+}
+
+#peopleactions {
+	width:75%;
+	margin:0px auto 0;
+	margin-top:20px;
+	display:none;
+	text-align:center;
+}
+
+#peopleactions a {
+	display: block;
+	font-size: 25px;
+	color: #000000;
+	margin-bottom:20px;
+}
+
+
+a,
+#locationBar,
+#address,
+.submit,
+#about {
+	-o-transition:all linear 0.3s;
+	-webkit-transition:all linear 0.3s;
+	-moz-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+}
+
+#about a {
+	color: #000000;
+	display: block;
+	font-size: 25px;
+}
+
+#wait {
+	background: none repeat scroll 0 0 rgba(255, 255, 255, 0.95);
+	color: #000000;
+	display: none;
+	font-size: 50px;
+	height: 100%;
+	padding-top: 260px;
+	position: absolute;
+	text-align: center;
+	top: 0;
+	width: 100%;
+	z-index: 2000;
+}
+
+#wait:hover {
+	color:#000 !important;
+}
+
+#wait span {
+	display:block;
+	width:25px;
+	background:url(../images/wait.png) no-repeat;
+	margin:20px auto;
+	height:30px;
+	position:relative
+}
+
+#about {
+	background: none repeat scroll 0 0 rgba(255, 255, 255, 0.9);
+	border-bottom: 1px solid #CCCCCC;
+	border-top: 1px solid #CCCCCC;
+	display: none;
+	margin-top: 20px;
+	opacity: 0.5;
+	padding-bottom: 20px;
+	padding-top: 30px;
+}
+
+#about > div {
+	margin-bottom:0px;
+}
+
+#about > div > div {
+	height: auto;
+	margin-bottom: 15px;
+	text-align: center;
+}
+
+#about .inspire img {
+	margin-left: 25px;
+	margin-top: -10px;
+	opacity: 0.5;
+	-moz-opacity: 0.5;
+	filter:alpha(opacity=5);
+}
+
+.gplus iframe {
+	height:30px;
+}
+
+#about:hover {
+	opacity:1;
+}
+
+.pac-container {
+	border: 1px solid #000000;
+	margin-left: 1px;
+	margin-top: -1px;
+	border-top:1px solid #ccc
+}
+
+.pac-container .pac-item {
+	color: #CCCCCC;
+	font-size: 35px;
+	padding: 5px 10px;
+}
+
+.pac-container .pac-item:hover {
+	background:#00aba6;
+	color:#fff
+}
+
+.pac-container .pac-item b {
+	color:#000 !important
+}
+
+::-moz-selection {
+background:#00aba6;
+color:#fff;
+}
+ 
+::-webkit-selection {
+background:#00aba6;
+color:#fff;
+}
+::selection {
+background:#00aba6;
+color:#fff;
+}
+
+.social .fb {
+	margin-left:4%;
+}
+
+.ad {
+	margin:0px auto 40px;
+}
+
+.ad.bottom {
+	margin:40px auto 0px;
+}
+
+.leader {
+	width:728px;
+	height:90px;
+	display:none
+}
+
+.mobile {
+	display:none !important;
+}
+
+/*SPONSORS*/
+#omnom {
+	border-top: 1px solid #CCCCCC;
+	color: #000000;
+	display: none;
+	margin-top: 10px;
+	padding: 20px 0 0 0;
+	text-align: center;
+}
+
+#omnom a {
+	color: #000000;
+	font-size: 28px;
+	text-decoration: underline;
+}
+
+/*ANIMATIONS*/
+
+#wait span {
+	-o-transition:all linear 0.3s;
+	-webkit-transition:all linear 0.3s;
+	-moz-transition:all linear 0.3s;
+	transition:all linear 0.3s;
+	-webkit-animation: fuckingwait 1000ms infinite both;
+	-moz-animation: fuckingwait 1000ms infinite;
+}
+
+@-webkit-keyframes fuckingwait {
+	0%   { left:-50px }
+	50%  { left:50px  }
+	100% { left:-50px }
+}
+   
+@-moz-keyframes fuckingwait {
+	0%   { left:-50px }
+	50%  { left:50px  }
+	100% { left:-50px }
+}
+
+@media only screen and (max-width: 480px) {
+	body {
+		padding-top:20px;
+	}
+	
+	.ad {
+		display:none;
+	}
+	
+	.leader {
+		display:none !important
+	}
+	
+	.mobile {
+		height: 50px;
+		width: 320px;
+		display:block !important;
+	}
+	
+	
+	#location {
+		font-size: 30px !important;
+		height: 40px!important;
+		width:80% !important
+	}
+	
+	#locationBar .submit {
+		font-size:20px !important;
+		width:90% !important;
+		border-radius:0 !important;
+	}
+	
+	#wait {
+		font-size:40px !important
+	}
+	
+	#destination {
+		font-size:30px;
+	}
+	
+	#wait {
+		padding-top: 170px;
+	}
+	
+	#mapcontainer {
+		margin-top:10px;
+		margin-bottom:0px;
+	}
+	
+	#map {
+		height:150px;
+		position:relative
+	}
+	
+	#map:after {
+		content:'';
+		display:block;
+		position:absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+	}
+	
+	#address {
+		font-size: 20px;
+		height: auto;
+		position: static;
+		text-align: center;
+		width: 100%;
+		background:none;
+		color:#999;
+		margin:10px 0;
+		padding:0;
+	}
+	
+	#actions {
+		margin-top:20px;
+	}
+	
+	#actions a {
+		font-size:20px;
+	}
+	
+	#actions #shit {
+		font-size:30px;
+	}
+	
+	#omnom {
+		padding: 20px 0;
+	}
+	
+	#omnom a {
+		font-size: 24px;
+	}
+	
+	#about {
+		margin-top:0px;
+		padding-top:20px;
+		opacity:1 !important
+	}
+	
+	.links {
+		float:none;
+		padding-left:0px
+	}
+	
+	#about > div > div {
+		padding-bottom:20px;
+		text-align:center
+	}
+	
+	#about .inspire img {
+		margin:0
+	}
+	
+	.social > div {
+		float: left;
+		overflow: hidden;
+		width: 33% !important;
+	}
+	
+	.social .fb {
+		margin-left:0;
+	}
+	
+	.links > div {
+		clear: both;
+	}
+	
+	.pac-container .pac-item {
+		font-size: 25px;
+	}
+	
+	#app .content {
+		padding:55% 0 0% 0% !important;
+	}
+	
+	#app #device img {
+		margin-left: 25%;
+	}
+	
+	#app .shit {
+		display:none
+	}
+}
