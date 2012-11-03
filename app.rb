@@ -78,15 +78,12 @@ def get_closefriends
   friends = Array.new
   @inbox = @graph.get_connections('me', 'inbox')
   @inbox.each do |mailitem|
-    #puts mailitem["to"].to_s
-    mailitem['to'].each do |users|
-      #puts users[1][0]['id'].to_s
-      #users.each do |user|
-      #  if user['id'] != @user['id']
-      #    friends << @graph.get_object(user['id'])
-      #  end
-      #puts users
-      #end
+    #puts mailitem["to"][1].to_s
+    mailitem['to']['data'].each do |user|
+      puts user.to_s
+     if user['id'] != @my_fbuser['id']
+      friends << user['id']
+     end
     end
   end
   friends
@@ -133,7 +130,7 @@ def get_user(id = 'me')
     if id == 'me'
       puts "User is self. Filling skeleton..."
       user['nearbyfriends'] = get_nearbyfriends
-      user['closefriens'] = get_closefriends
+      user['closefriends'] = get_closefriends
       user['friends'] = get_friends
       user['objstate'] = 0
     else
@@ -204,7 +201,7 @@ get "/" do
   @graph  = Koala::Facebook::API.new(session[:access_token])
   @app  =  @graph.get_object(ENV["FACEBOOK_APP_ID"])
   if session[:access_token]
-    
+    @my_fbuser = @graph.get_object("me")
     @my_user = get_user("me")
     @my_friends = @graph.get_connections("me", "friends")
     #puts @my_friends.to_s
