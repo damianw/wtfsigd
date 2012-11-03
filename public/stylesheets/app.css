@@ -23,6 +23,18 @@ body {
 	position: relative;
 }
 
+footer {
+	text-align:center;
+	height: 4em;
+}
+
+.wrapper {
+min-height: 100%;
+height: auto !important;
+height: 100%;
+margin: 0 auto -4em;
+}
+
 input {
 	-webkit-appearance: none!important;
 	cursor:pointer

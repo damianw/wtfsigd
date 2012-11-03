@@ -21,7 +21,7 @@
     <!-- <link href="/public/assets/css/bootstrap-responsive.css" rel="stylesheet"> -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-    <link href="stylesheets/foundation.css" rel="stylesheet">
+    <link href="stylesheets/foundation.css" rel="stylesheet">  
     <link href="stylesheets/app.css" rel="stylesheet">
   </head>
   <body>
@@ -39,9 +39,7 @@
       <div id="recommendation" class="row">
         <div class="twelve columns">
           <span class="response">
-            You&#39;re going to fucking love <br><%= @verb %><a href="http://facebook.com/<%= @activity['id'] %>"><%= @activity['name']%></a><br>
-			<img src="<%= @graph.get_picture(@activity['id'], type: 'large')%>" alt="activityPicture" align="middle"><br>with <a href="http://facebook.com/<%= @rand_friend['id'] %>"><%= @rand_friend['name'] %></a>.<br>
-			<img src="<%= @graph.get_picture(@rand_friend['id'], type: 'large')%>" alt="friendPicture" align="middle"><br>
+            Why don't you <br><%= @verb %><a href="http://facebook.com/<%= @activity['id'] %>"><%= @activity['name']%></a><br><img src="activityPicture" alt="activityPicture" align="middle"><br>with <a href="http://facebook.com/<%= @rand_friend['id'] %>"><%= @rand_friend['name'] %></a>.<br><img src="friendPicture" alt="friendPicture" align="middle"><br>
           </span>
         </div>
       </div>
@@ -49,18 +47,14 @@
       <div id="actions" class="row" style="display: block;">
         <div class="four columns"> <a href="/" id="logout" title="WRONG FACEBOOK LOGIN DUMBASS">this isn't fucking me</a> </div>
         <div class="four columns"> <a href="/" id="next" title="FUCK YOU BRO">no, that sounds fucking stupid</a> </div>
-        <div class="four columns"> <a href="/fuckthatguy" id="blockperson" title="FUCK THIS PERSON">no more of this fucking person</a> </div>
+        <div class="four columns"> <a href="/" id="blockperson" title="FUCK THIS PERSON">no more of this fucking person</a> </div>
       </div>
       <div id="peopleactions" class="row" style="display: block;">
-      	<div class="four columns"> <a href="/fuckingrandomasspeople" id="randomPeople" title="ALL RANDOM FUCKING PEOPLE">only fucking random people</a> </div>
-      	<div class="four columns"> <a href="/fuckersnearby" id="nearbyPeople" title="ALL NEARBY FUCKING PEOPLE">only people fucking close to me</a> </div>
-      	<div class="four columns"> <a href="/fuckingclosefriends" id="talkPeople" title="ALL PEOPLE I FUCKING TALK TO">people i actually fucking talk to</a> </div>
+      	<div class="four columns"> <a href="/" id="randomPeople" title="ALL RANDOM FUCKING PEOPLE">only fucking random people</a> </div>
+      	<div class="four columns"> <a href="/" id="nearbyPeople" title="ALL NEARBY FUCKING PEOPLE">only people fucking close to me</a> </div>
+      	<div class="four columns"> <a href="/" id="talkPeople" title="ALL PEOPLE I FUCKING TALK TO">people i actually fucking talk to</a> </div>
       </div>
     </div>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
   </body>
-  <footer class = "wrapper">  
-    <p><%= @displaying%></p>
-    <p><small>The University of Michigan thanks you for your cooperation.</small></p>  
-  </footer>  
 </html>
