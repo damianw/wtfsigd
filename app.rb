@@ -101,8 +101,8 @@ get "/" do
       muser.data = @my_data
       muser.ings = @my_ing
       muser.friends = @friends
-      puts muser.valid?
-      muser.save
+      #puts muser.valid?
+      #muser.save
     end
     puts "MyINGs: " + @my_ing.size.to_s
 
