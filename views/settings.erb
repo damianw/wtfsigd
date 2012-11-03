@@ -1,0 +1,10 @@
+<%= @my_user['ignoredfriends'].size %>  
+<% @my_user['ignoredfriends'].each do |friendid| %>  
+  <article class="complete">  
+    <p>  
+      <%= "niggers" %>  
+      <%= @graph.get_object(friendid)['name'] %>  
+      <span><a href="/allow/<%= friendid %>">[remove]</a></span>  
+    </p>  
+  </article>  
+<% end %>  

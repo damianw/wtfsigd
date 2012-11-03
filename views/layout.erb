@@ -13,9 +13,42 @@
     </hgroup>  
   </header>  
   <div id="main">  
-    <%= yield %>  
+    <%= yield %>
+    <ul>
+    <li>
+      <a href="#" class="link" id="logout">
+        <span class="link">THIS ISN'T FUCKING ME</span>
+      </a>
+    </li>
+    <li>
+      <a href="/" class="link" id="nextidea">
+        <span class="link">NO, THAT SOUNDS FUCKING STUPID</span>
+      </a>
+    </li>
+    <li>
+      <a href="/fuckthatguy" class="link" id="asshole">
+        <span class="link">NOT THIS FUCKING PERSON</span>
+      </a>
+    </li>
+    <li>
+      <a href="/fuckingclosefriends" class="link" id="closefriends">
+        <span class="link">PEOPLE I ACTUALLY FUCKING TALK TO</span>
+      </a>
+    </li>
+    <li>
+      <a href="/fuckersnearby" class="link" id="nearbyfriends">
+        <span class="link">ONLY FUCKERS NEARBY</span>
+      </a>
+    </li>
+    <li>
+      <a href="/fuckingrandomasspeople" class="link" id="randomfriends">
+        <span class="link">RANDOM FUCKS</span>
+      </a>
+    </li>
+  </ul>
   </div>  
   <footer>  
+    <p><%= @displaying%></p>
     <p><small>The University of Michigan thanks you for your cooperation.</small></p>  
   </footer>  
 </body>  

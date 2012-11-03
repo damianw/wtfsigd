@@ -9,8 +9,8 @@ set :show_exceptions, false
 DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/users.db")  
 class User  
   include DataMapper::Resource  
-  property :id, Serial  
-  #property :fbid, Integer, :required => true, :key => true 
+  property :id, Serial 
+  property :name, String
   property :likes, Object
   property :ings, Object
   property :data, Object
@@ -33,6 +33,26 @@ DataMapper.finalize.auto_upgrade!
 # for a full list of permissions
 FACEBOOK_SCOPE = 'user_likes,user_photos,user_photo_video_tags'
 
+# def next_match
+#   while true
+#     matching_data = Array.new
+#     matching_ing = Array.new
+#     rand_friend = ""
+#     count = 0
+#     while matching_data.size == 0 && matching_ing.size == 0 && count < 20
+#       rand_friend = get_random_friend(@my_user)
+#       matching_ing = get_matching_ings(@my_user, rand_friend)
+#       break if matching_ing.size > 0
+#       matching_data = get_matching_data(@my_user, rand_friend)
+#       count = count + 1
+#     end
+#     verb_activity_goal(rand_friend, matching_ing, matching_data)
+#     session[:nextfriend] = rand_friend['id']
+#     session[:nextverb] = @verb
+#     session[:nextactivity] = @activity
+# end
+
+@nextthread = Thread.new {next_match}
 
 unless ENV["FACEBOOK_APP_ID"] && ENV["FACEBOOK_SECRET"]
   abort("missing env vars: please set FACEBOOK_APP_ID and FACEBOOK_SECRET with your app credentials")
@@ -99,7 +119,12 @@ def get_friends
 end
 
 def get_nearbyfriends
-  @newsfeed
+  newsfeed = @graph.fql_query("SELECT id, page_id FROM location_post WHERE distance(latitude, longitude, '40.1112272999', '-88.225622899' ) < 10000")
+  nearbyfriends = Array.new
+  newsfeed.each do |page|
+    nearbyfriends << @graph.get_object(page['id'])['from']['id']
+  end
+  nearbyfriends
 end
 
 def get_user(id = 'me')
@@ -112,33 +137,40 @@ def get_user(id = 'me')
     if id == 'me' && user['objstate'] == -1
       puts "User is skeleton. Filling..."
       user['nearbyfriends'] = get_nearbyfriends
-      user['closefriens'] = get_closefriends
+      user['closefriends'] = get_closefriends
       user['friends'] = get_friends
       user['ignoredfriends'] = Array.new
+      user['ignoredfriends'] << 0
       user['objstate'] = 0
     end
     user.save
-    user
   else
     puts "Creating new user: " + fbid.to_s
     user = User.new
     user['id'] = fbid
+    user['name'] = fbuser['name']
     user['likes'] = get_likes(id)
     user['ings'] = get_ings(id)
     user['data'] = get_data(id)
     user['friendpref'] = 0
     if id == 'me'
       puts "User is self. Filling skeleton..."
-      user['nearbyfriends'] = get_nearbyfriends
-      user['closefriends'] = get_closefriends
       user['friends'] = get_friends
-      user['objstate'] = 0
+      filler = Thread.new do
+        user['nearbyfriends'] = get_nearbyfriends
+        user['closefriends'] = get_closefriends
+        user['ignoredfriends'] = Array.new
+        user['ignoredfriends'] << 0
+        user['objstate'] = 0
+        user.save
+      end
+      filler.run
     else
       user['objstate'] = -1
     end
     user.save
-    user
   end
+  return user
 end
 
 def get_likes(id = 'me')
@@ -157,7 +189,7 @@ def get_ings(id = 'me')
 end
 
 def get_data(id = 'me')
-  @graph.get_connections(id, 'music') + @graph.get_connections(id, 'movies') + @graph.get_connections(id, 'activities')
+  @graph.get_connections(id, 'activities')# + @graph.get_connections(id, 'music') + @graph.get_connections(id, 'movies')
 end
 
 def get_matching_data(user1, user2)
@@ -171,12 +203,13 @@ def get_matching_data(user1, user2)
 end
 
 def get_matching_ings(user1, user2)
-  matching_ing = Array.new
+  matching_ings = Array.new
   user1['ings'].each do |activity|
     user2['ings'].each do |activity2|
-      matching_ing << activity if activity['name'].downcase == activity2['name'].downcase
+      matching_ings << activity if activity['name'].downcase == activity2['name'].downcase
     end
   end
+  matching_ings
 end
 
 def get_ignoredfriends(id = 'me')
@@ -192,6 +225,7 @@ def get_random_friend(user)
   when 1 #for close friends
     randf = get_user(user['closefriends'][rand(user['closefriends'].size)])
   when 2 #for nearby friends
+    user['nearbyfriends'] = get_nearbyfriends if user['nearbyfriends'] == nil
     randf = get_user(user['nearbyfriends'][rand(user['nearbyfriends'].size)])
   end
   randf
@@ -201,193 +235,131 @@ get "/" do
   @graph  = Koala::Facebook::API.new(session[:access_token])
   @app  =  @graph.get_object(ENV["FACEBOOK_APP_ID"])
   if session[:access_token]
+
     @my_fbuser = @graph.get_object("me")
     @my_user = get_user("me")
-    @my_friends = @graph.get_connections("me", "friends")
-    #puts @my_friends.to_s
-    # muser = User.get(@user['id'])
-    # @friends = Array.new
-    # if (muser != nil)
-    #   if muser['friends'] != nil
-    #     @friends = muser['friends']
-    #   else
-    #     muser['friends'] = get_friends
-    #     @friends = muser['friends']
-    #     muser.save
-    #     @my_user = muser
-    #   end
-    #   @my_likes = muser['likes']
-    #   @my_data = muser['data']
-    #   @my_ing = muser['ings']
-    # else
-    #   @friends = get_friends#@graph.get_connections('me', 'friends')
-    #   @my_likes   = @graph.get_connections('me', 'likes')
-    #   @my_data = @graph.get_connections('me', 'activities') + @graph.get_connections('me', 'movies') + @graph.get_connections('me', 'music')
-    #   @my_ing = Array.new
-    #   @my_likes.each do |like|
-    #     if like['name'].end_with? 'ing'
-    #       @my_ing << like
-    #     end
-    #   end
-    #   muser = User.new#(id: @user['id'], likes: @my_likes, data: @my_data, ings: @my_ing, friends: @friends)
-    #   muser.id = @user['id']
-    #   muser.likes = @my_likes
-    #   muser.data = @my_data
-    #   muser.ings = @my_ing
-    #   muser.friends = @friends
-    #   puts muser.valid?
-    #   muser.save
-    #   @my_user = muser
-    # end
-    # puts "MyINGs: " + @my_ing.size.to_s
 
+    #puts @my_user['ignoredfriends'].to_s + " " + @my_user['closefriends'].to_s
 
+    if session[:friendpref]
+      @my_user['friendpref'] = session[:friendpref]
+      @my_user.save
+    end
+    if session[:toignore]
+      @my_user['ignoredfriends'] << session[:toignore]
+      session[:toignore] = nil
+      @my_user.save
+    end
+    #
+    if session[:nextfriend]
+      @activity = session[:nextactivity]
+      @verb = session[:nextverb]
+      @rand_friend = get_user(session[:nextfriend])
+      session["friendid"] = session[:nextfriend]
+      session[:nextfriend] = nil
+    else
+      #pick a random friend
 
-    #pick a random friend
+      #friends_a = @friends.to_a
 
-    #friends_a = @friends.to_a
-
-    #we have a random friend... what can we do with them?
-    
-    matching_data = Array.new
-    matching_ing = Array.new
-
-    while matching_data.size == 0 && matching_ing.size == 0
+      #we have a random friend... what can we do with them?
+      
       matching_data = Array.new
       matching_ing = Array.new
-      rand_friend = get_random_friend(@my_user)
-      puts rand_friend.to_s
-      @rand_friend = @graph.get_object(rand_friend['id'])
-      matching_ing = get_matching_ings(@my_user, rand_friend)
-      break if matching_ing.size > 0
-      matching_data = get_matching_data(@my_user, rand_friend)
+      rand_friend = ""
+      count = 0
+      while matching_data.size == 0 && matching_ing.size == 0
+        redirect "/youfuckingsuck" if count > 20
+        rand_friend = get_random_friend(@my_user)
+        matching_ing = get_matching_ings(@my_user, rand_friend)
+        break if matching_ing.size > 0
+        matching_data = get_matching_data(@my_user, rand_friend)
+        count = count + 1
+      end
+
+      verb_activity_goal(rand_friend, matching_ing, matching_data)
+      @rand_friend = rand_friend
+      session["friendid"] = rand_friend['id']
+
+      # for other data you can always run fql
+      @friends_using_app = @graph.fql_query("SELECT uid, name, is_app_user, pic_square FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1")
+      display_message
     end
-
-    #   randn = rand(@friends.size)
-    #   @rand_friend = @friends[randn]
-    #   muser = User.get(@rand_friend['id'])
-    #   if (muser != nil)
-    #     friend_likes = muser['likes']
-    #     friend_data = muser['data']
-    #     friend_ing = muser['ings']
-    #   else
-    #     puts "Trying " + @rand_friend['name']
-    #     friend_data = @graph.get_connections(@rand_friend['id'], 'music') + @graph.get_connections(@rand_friend['id'], 'movies') + @graph.get_connections(@rand_friend['id'], 'activities')
-    #     friend_likes = @graph.get_connections(@rand_friend['id'], 'likes')
-    #     puts friend_data.size
-    #     friend_ing = Array.new
-    #     friend_likes.each do |like|
-    #       if like['name'].end_with? 'ing'
-    #         friend_ing << like
-    #       end
-    #     end
-    #     muser = User.new#(id: @user['id'], likes: @my_likes, data: @my_data, ings: @my_ing, friends: @friends)
-    #     muser.id = @rand_friend['id']
-    #     muser.likes = friend_likes
-    #     muser.data = friend_data
-    #     muser.ings = friend_ing
-    #     muser.friends = nil
-    #     puts muser.valid?
-    #     muser.save
-    #   end
-    #   @my_ing.each do |ing|
-    #     friend_ing.each do |fing|
-    #       if fing['name'] == ing['name']
-    #         matching_ing << ing
-    #       end
-    #     end
-    #   end
-    #   break if matching_ing.size > 0
-    #   puts "INGs: " + matching_ing.size.to_s
-    #   @my_data.each do |like|
-    #     friend_data.each do |flike|
-    #       if flike['name'] == like['name']
-    #         matching_data << like
-    #       end
-    #     end
-    #   end
-    # end
-    @verb = " fucking go "
-    if matching_ing.size > 0
-      @activity = matching_ing[rand(matching_ing.size)]
-      @activity['name'].downcase!
-    else
-      @activity = matching_data[rand(matching_data.size)]
-    end
-    puts @activity['category'] + ", " + @activity['name']
-    @verb = " watch that fucking " if @activity['category'].include? "Movie"
-    @verb = " listen to some fucking " if @activity['category'].include? "Music"
-    @verb = " fucking go " if @activity['category'].include? "Interest"
-    @activity['category'].downcase! if @activity['category'].include? "Interest"
-    @goal = "You should" + @verb + @activity['category'] + "with" + @rand_friend['name'] + "."
-    puts "You should" + @verb + @activity['name'] + " with " + @rand_friend['name'] + "."
-
-    # matching_data
-    # matching_acts = Array.new
-    # friendacts.each do |activity|
-    #   @activities.each do |myact|
-    #     if myact['name'].downcase == activity['name'].downcase
-    #       matching_acts << activity
-    #     end
-    #   end
-    # end
-
-    # matching_movies = Array.new
-    # friendmovies.each do |activity|
-    #   @movies.each do |myact|
-    #     if myact['name'].downcase == activity['name'].downcase
-    #       matching_movies << activity
-    #     end
-    #   end
-    # end
-
+    session["friendpref"] = @my_user['friendpref']
     
-
-    #@yourgoal = matching_acts[rand(matching_acts.size)]
-    #puts "You should go " + @yourgoal['name'] + " with " + @rand_friend['name'] + "."
-
-    #@likes = @user.likes;
-
-    # for other data you can always run fql
-    @friends_using_app = @graph.fql_query("SELECT uid, name, is_app_user, pic_square FROM user WHERE uid in (SELECT uid2 FROM friend WHERE uid1 = me()) AND is_app_user = 1")
     erb :home
+    
+    #@nextthread.join
   else
-    erb :index
+    erb :login
   end
 
   #erb :index
 end
 
-# def setUserParams(id) do
-#   user  = @graph.get_object("me")
-#   muser = User.get(@user['id'])
-#   if (muser != nil)
-#     @friends = muser['friends']
-#     @my_likes = muser['likes']
-#     @my_data = muser['data']
-#     @my_ing = muser['ings']
-#   else
-#     @friends = @graph.get_connections('me', 'friends')
-#     @my_likes   = @graph.get_connections('me', 'likes')
-#     @my_data = @graph.get_connections('me', 'activities') + @graph.get_connections('me', 'movies') + @graph.get_connections('me', 'music')
-#     @my_ing = Array.new
-#     @my_likes.each do |like|
-#       if like['name'].end_with? 'ing'
-#         @my_ing << like
-#       end
-#     end
-#     muser = User.new#(id: @user['id'], likes: @my_likes, data: @my_data, ings: @my_ing, friends: @friends)
-#     muser.id = @user['id']
-#     muser.likes = @my_likes
-#     muser.data = @my_data
-#     muser.ings = @my_ing
-#     muser.friends = @friends
-#     puts muser.valid?
-#     muser.save
-# # used by Canvas apps - redirect the POST to be a regular GET
-# post "/" do
-#   redirect "/"
-# end
+def verb_activity_goal(friend, matching_ing, matching_data)
+  @verb = " fucking go "
+  if matching_ing.size > 0
+    @activity = matching_ing[rand(matching_ing.size)]
+    @activity['name'].downcase!
+  else
+    @activity = matching_data[rand(matching_data.size)]
+  end
+  puts @activity['category'] + ", " + @activity['name']
+  @verb = " watch that fucking " if @activity['category'].include? "Movie"
+  @verb = " listen to some fucking " if @activity['category'].include? "Music"
+  @verb = " fucking go " if @activity['category'].include? "Interest"
+  @activity['name'].downcase! if @activity['category'].include? "Interest"
+  @goal = "You should" + @verb + @activity['category'] + "with" + friend['name'] + "."
+  puts "You should" + @verb + @activity['name'] + " with " + friend['name'] + "."
+end
+
+get "/settings" do
+  fix_instance_vars
+  @my_user = get_user
+  erb :settings
+end
+
+get "/fuckingclosefriends" do
+  if session[:access_token]
+    session['friendpref'] = 1
+  end
+  redirect "/"
+end
+
+get "/fuckingrandomasspeople" do
+  if session[:access_token]
+    session['friendpref'] = 0
+  end
+  redirect "/"
+end
+
+get "/fuckersnearby" do
+  if session[:access_token]
+    session['friendpref'] = 2
+    fix_instance_vars
+    @my_user = get_user
+    @my_user['nearbyfriends'] = get_nearbyfriends
+  end
+  redirect "/"
+end
+
+get "/fuckthatguy" do
+  if session[:friendid]
+    fix_instance_vars
+    @my_user = get_user
+    @my_user['ignoredfriends'] = Array.new if @my_user['ignoredfriends'] == nil
+    @my_user['ignoredfriends'] << session[:friendid]
+    #session[:toignore] = session[:friendid]
+  end
+  redirect "/"
+end
+
+get "/youfuckingsuck" do
+  @message = "We found all fuck for that. Try a broader search. Dick."
+  fix_instance_vars
+  erb :message
+end
 
 # used to close the browser window opened to post to wall/send to friends
 get "/close" do
@@ -407,4 +379,21 @@ end
 get '/auth/facebook/callback' do
 	session[:access_token] = authenticator.get_access_token(params[:code])
 	redirect '/'
+end
+
+def fix_instance_vars
+  @graph  = Koala::Facebook::API.new(session[:access_token]) if @graph == nil
+  display_message
+end
+
+def display_message
+  @displaying = "Searching "
+  case session['friendpref']
+  when 0
+    @displaying += "all your fucking friends."
+  when 1
+    @displaying += "only those close best buddy fuckers that you love so much."
+  when 2
+    @displaying += "friends near your location. You creepy fucker."
+  end
 end
