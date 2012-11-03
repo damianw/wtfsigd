@@ -109,6 +109,7 @@ end
 error(Koala::Facebook::APIError) do
   session[:access_token] = nil
   redirect "/auth/facebook"
+  #redirect "/login"
 end
 
 def get_closefriends 
@@ -322,6 +323,12 @@ get "/settings" do
   fix_instance_vars
   @my_user = get_user
   erb :settings
+end
+
+get "/login" do
+  fix_instance_vars
+  @app  =  @graph.get_object(480611415295029)
+  erb :login
 end
 
 get "/fuckingclosefriends" do
